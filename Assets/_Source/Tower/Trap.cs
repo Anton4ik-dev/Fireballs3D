@@ -1,46 +1,28 @@
-using Observer;
 using ScriptableObjects;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace TowerSystem
 {
-    class Trap : MonoBehaviour, IObservable
+    class Trap : MonoBehaviour
     {
-        [SerializeField] private LayerMask bulletLayer;
-        [SerializeField] private PancakeSO _pancake;
-        [SerializeField] private List<GameObject> _gameObjectPancakes;
-        private List<IObserver> _observers;
+        [SerializeField] private Transform rotatePoint;
+        [SerializeField] private TrapSO trapSO;
         private int _bulletLayerNumber;
-        public void AddObserver(IObserver o)
-        {
-            _observers.Add(o);
-        }
-
-        public void RemoveObserver(IObserver o)
-        {
-            _observers.Remove(o);
-        }
-
-        public void NotifyObservers()
-        {
-            for (int i = 0; i < _observers.Count; i++)
-            {
-                _observers[i].Update(_pancake.Cost);
-            }
-        }
         private void Start()
         {
-            _observers = new List<IObserver>();
-            _bulletLayerNumber = (int)Mathf.Log(bulletLayer.value, 2);
+            _bulletLayerNumber = (int)Mathf.Log(trapSO.BulletLayer.value, 2);
+        }
+        private void Update()
+        {
+            transform.RotateAround(rotatePoint.position, Vector3.up, trapSO.RotateSpeed * Time.deltaTime);
         }
         private void OnTriggerEnter(Collider other)
         {
             if (other.gameObject.layer == _bulletLayerNumber)
             {
                 Destroy(other.gameObject);
-                //Destroy();
-                NotifyObservers();
+                ScoreChangeDetector.OnScoreChange?.Invoke(trapSO.Cost);
+                Destroy(gameObject);
             }
         }
     }

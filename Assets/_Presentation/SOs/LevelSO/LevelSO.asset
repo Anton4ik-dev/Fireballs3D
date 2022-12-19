@@ -19,4 +19,4 @@ MonoBehaviour:
     AmountOFPancakes: 5
   - PancakeSO: {fileID: 11400000, guid: 3692e3f718b82e74c8758cb270d139cb, type: 2}
     AmountOFPancakes: 4
-  ObstacleSO: {fileID: 0}
+  ObstaclePrefab: {fileID: 7172897185640176205, guid: 237ed80d6f6cec547af5871863203b93, type: 3}

@@ -2,6 +2,7 @@ using MV;
 using Observer;
 using Player;
 using ScriptableObjects;
+using StateSystem;
 using System.Collections.Generic;
 using TowerSystem;
 using UnityEngine;
@@ -23,16 +24,20 @@ namespace Core
         [SerializeField] private UIView uiView;
 
         private TowerSpawner _towerSpawner;
-        private IObservable trapObservable;
+        private ScoreChangeDetector _scoreDetector;
+        private GameStateMachine _gameStateMachine;
 
         private void Awake()
         {
-            shootingInput.Initialize(new Shooting(shootSpot, bulletSO.BulletPrefab));
-
+            _gameStateMachine = new GameStateMachine();
             _towerSpawner = new TowerSpawner(levelSos, tower);
-            trapObservable = _towerSpawner.SpawnTower();
+            _scoreDetector = new ScoreChangeDetector();
+            new UIModel(_scoreDetector, _gameStateMachine, uiView);
 
-            new UIModel(tower, uiView);
+            shootingInput.Initialize(new Shooting(shootSpot, bulletSO.BulletPrefab));
+            _towerSpawner.SpawnTower(_gameStateMachine);
+
+            _gameStateMachine.StartState(typeof(Game));
         }
     }
 }

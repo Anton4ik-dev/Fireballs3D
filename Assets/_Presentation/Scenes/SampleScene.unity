@@ -990,7 +990,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 621132305}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2096126722}
+        m_TargetAssemblyTypeName: MV.UIView, Assembly-CSharp
+        m_MethodName: Restart
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &621132305
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1947,7 +1959,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1720112068}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2096126722}
+        m_TargetAssemblyTypeName: MV.UIView, Assembly-CSharp
+        m_MethodName: Restart
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1720112068
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2147,7 +2171,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c598c75d8a588cf46af07d3872c960d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _scoreText: {fileID: 24230558}
+  scoreText: {fileID: 24230558}
+  winScoreText: {fileID: 1086621975}
+  winScreen: {fileID: 64315434}
+  loseScreen: {fileID: 273304302}
 --- !u!4 &2096126723
 Transform:
   m_ObjectHideFlags: 0

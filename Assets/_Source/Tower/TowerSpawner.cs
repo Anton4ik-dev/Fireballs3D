@@ -1,5 +1,6 @@
 using Observer;
 using ScriptableObjects;
+using StateSystem;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -18,6 +19,7 @@ namespace TowerSystem
         private List<PancakeSO> FillPancakeList()
         {
             List<PancakeSO> pancakes = new List<PancakeSO>();
+
             for (int i = 0; i < _levelSO.Pancakes.Count; i++)
             {
                 for (int z = 0; z < _levelSO.Pancakes[i].AmountOFPancakes; z++)
@@ -25,6 +27,8 @@ namespace TowerSystem
                     pancakes.Add(_levelSO.Pancakes[i].PancakeSO);
                 }
             }
+
+            RandomSort(pancakes);
             return pancakes;
         }
         private void RandomSort(List<PancakeSO> pancakes)
@@ -51,17 +55,14 @@ namespace TowerSystem
             }
             return gameObjectPancakes;
         }
-        public IObservable SpawnTower()
+        public void SpawnTower(GameStateMachine gameStateMachine)
         {
             List<PancakeSO> pancakes = FillPancakeList();
-            List<GameObject> gameObjectPancakes;
-            RandomSort(pancakes);
+            List<GameObject> gameObjectPancakes = PancakesInstantiate(pancakes);
 
-            gameObjectPancakes = PancakesInstantiate(pancakes);
-            _tower.TowerInitialize(pancakes, gameObjectPancakes);
-
-            GameObject obstacle = GameObject.Instantiate(_levelSO.ObstacleSO.PancakePrefab, _tower.transform.position, Quaternion.identity);
-            return obstacle.GetComponent<IObservable>();
+            _tower.TowerInitialize(pancakes, gameObjectPancakes, gameStateMachine);
+            
+            GameObject.Instantiate(_levelSO.ObstaclePrefab, _tower.transform.position, Quaternion.identity);
         }
     }
 }

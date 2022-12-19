@@ -7,6 +7,6 @@ namespace ScriptableObjects
     public class LevelSO : ScriptableObject
     {
         public List<PartOfTowerInfo> Pancakes;
-        public PancakeSO ObstacleSO;
+        public GameObject ObstaclePrefab;
     }
 }
