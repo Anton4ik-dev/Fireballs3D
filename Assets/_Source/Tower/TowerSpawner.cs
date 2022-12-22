@@ -13,7 +13,7 @@ namespace TowerSystem
 
         public TowerSpawner(List<LevelSO> levelSOs, Tower tower)
         {
-            int rnd = Random.Range(0, levelSOs.Count - 1);
+            int rnd = Random.Range(0, levelSOs.Count);
             _levelSO = levelSOs[rnd];
             _tower = tower;
         }
