@@ -5,26 +5,30 @@ namespace StateSystem
 {
     public class GameStateMachine
     {
-        private Dictionary<Type, AStateGame> states;
+        private Dictionary<Type, AStateGame> _states;
         private AStateGame _activeState;
+
+        public Dictionary<Type, AStateGame> States { get => _states; }
+
         public static Action<Type> OnChangeState;
 
         public GameStateMachine()
         {
-            states = new Dictionary<Type, AStateGame>();
-            states.Add(typeof(Game), new Game(this));
-            states.Add(typeof(Win), new Win(this));
-            states.Add(typeof(Lose), new Lose(this));
+            _states = new Dictionary<Type, AStateGame>();
+
             Bind();
         }
+
         private void Bind()
         {
             OnChangeState += ChangeState;
         }
+
         public void Expose()
         {
             OnChangeState -= ChangeState;
         }
+
         public void ChangeState(Type type)
         {
             _activeState.Exit();
@@ -33,7 +37,7 @@ namespace StateSystem
 
         public void StartState(Type type)
         {
-            _activeState = states[type];
+            _activeState = _states[type];
             _activeState.Enter();
         }
 

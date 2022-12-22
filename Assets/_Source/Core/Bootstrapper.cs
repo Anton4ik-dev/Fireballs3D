@@ -21,17 +21,20 @@ namespace Core
         [SerializeField] private List<LevelSO> levelSos;
 
         [Header("UIView")]
-        [SerializeField] private Hud uiView;
-
+        [SerializeField] private ScoreAndChargeView _scoreAndChargeView;
+        
         private TowerSpawner _towerSpawner;
         private GameStateMachine _gameStateMachine;
 
         private void Awake()
         {
             _gameStateMachine = new GameStateMachine();
+            new StateInitializer(_gameStateMachine);
+
             _towerSpawner = new TowerSpawner(levelSos, tower);
-            new Score(uiView);
-            new Charge(uiView, chargeSO, shootingInput);
+
+            new Score(_scoreAndChargeView);
+            new Charge(_scoreAndChargeView, chargeSO, shootingInput);
 
             shootingInput.Initialize(new Shooting(shootSpot, bulletSO.BulletPrefab));
             _towerSpawner.SpawnTower(_gameStateMachine);

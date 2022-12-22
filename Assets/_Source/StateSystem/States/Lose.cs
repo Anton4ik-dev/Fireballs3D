@@ -5,10 +5,7 @@ namespace StateSystem
 {
     public class Lose : AStateGame
     {
-        public Lose(GameStateMachine owner) : base(owner)
-        {
-
-        }
+        public Lose(GameStateMachine owner) : base(owner) { }
 
         public override void Enter()
         {

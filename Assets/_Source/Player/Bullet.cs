@@ -7,9 +7,7 @@ namespace Player
     {
         [SerializeField] private Rigidbody rb;
         [SerializeField] private BulletSO bulletSO;
-        private void Start()
-        {
-            rb.AddForce(rb.transform.forward * bulletSO.BulletSpeed);
-        }
+
+        private void Start() => rb.AddForce(rb.transform.forward * bulletSO.BulletSpeed);
     }
 }

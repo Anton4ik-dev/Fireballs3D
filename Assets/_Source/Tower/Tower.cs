@@ -9,10 +9,13 @@ namespace TowerSystem
     class Tower : MonoBehaviour
     {
         [SerializeField] private LayerMask bulletLayer;
+
         private List<PancakeSO> _pancakes;
         private List<GameObject> _gameObjectPancakes;
+
         private Vector3 _decreasingVector;
         private int _bulletLayerNumber;
+
         private void DecreaseTower()
         {
             Destroy(_gameObjectPancakes[0]);
@@ -20,20 +23,22 @@ namespace TowerSystem
             _pancakes.RemoveAt(0);
             transform.position -= _decreasingVector;
         }
+
         private void CheckWin()
         {
             if (_gameObjectPancakes.Count == 0)
-            {
                 GameStateMachine.OnChangeState?.Invoke(typeof(Win));
-            }
         }
+
         public void TowerInitialize(List<PancakeSO> pancakes, List<GameObject> gameObjectPancakes, GameStateMachine gameStateMachine)
         {
             _pancakes = pancakes;
             _gameObjectPancakes = gameObjectPancakes;
+
             _decreasingVector = new Vector3(0, _gameObjectPancakes[0].transform.localScale.y, 0);
             _bulletLayerNumber = (int)Mathf.Log(bulletLayer.value, 2);
         }
+
         private void OnTriggerEnter(Collider other)
         {
             if (other.gameObject.layer == _bulletLayerNumber)
