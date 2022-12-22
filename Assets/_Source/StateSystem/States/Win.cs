@@ -13,8 +13,9 @@ namespace StateSystem
         public override void Enter()
         {
             Time.timeScale = 0;
-            UIModel.OnWin?.Invoke();
-            UIModel.OnExpose?.Invoke();
+            Score.OnWin?.Invoke();
+            Score.OnExpose?.Invoke();
+            _owner.Expose();
         }
     }
 }

@@ -1,5 +1,4 @@
 using MV;
-using Observer;
 using ScriptableObjects;
 using StateSystem;
 using System.Collections.Generic;
@@ -12,7 +11,6 @@ namespace TowerSystem
         [SerializeField] private LayerMask bulletLayer;
         private List<PancakeSO> _pancakes;
         private List<GameObject> _gameObjectPancakes;
-        private GameStateMachine _gameStateMachine;
         private Vector3 _decreasingVector;
         private int _bulletLayerNumber;
         private void DecreaseTower()
@@ -26,7 +24,7 @@ namespace TowerSystem
         {
             if (_gameObjectPancakes.Count == 0)
             {
-                _gameStateMachine.ChangeState(typeof(Win));
+                GameStateMachine.OnChangeState?.Invoke(typeof(Win));
             }
         }
         public void TowerInitialize(List<PancakeSO> pancakes, List<GameObject> gameObjectPancakes, GameStateMachine gameStateMachine)
@@ -35,14 +33,13 @@ namespace TowerSystem
             _gameObjectPancakes = gameObjectPancakes;
             _decreasingVector = new Vector3(0, _gameObjectPancakes[0].transform.localScale.y, 0);
             _bulletLayerNumber = (int)Mathf.Log(bulletLayer.value, 2);
-            _gameStateMachine = gameStateMachine;
         }
         private void OnTriggerEnter(Collider other)
         {
             if (other.gameObject.layer == _bulletLayerNumber)
             {
                 Destroy(other.gameObject);
-                ScoreChangeDetector.OnScoreChange?.Invoke(_pancakes[0].Cost);
+                Score.OnScoreChange?.Invoke(_pancakes[0].Cost);
                 DecreaseTower();
                 CheckWin();
             }

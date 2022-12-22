@@ -1,5 +1,4 @@
 using MV;
-using Observer;
 using Player;
 using ScriptableObjects;
 using StateSystem;
@@ -15,24 +14,24 @@ namespace Core
         [SerializeField] private ShootingInput shootingInput;
         [SerializeField] private Transform shootSpot;
         [SerializeField] private BulletSO bulletSO;
+        [SerializeField] private ChargeSO chargeSO;
 
         [Header("Tower")]
         [SerializeField] private Tower tower;
         [SerializeField] private List<LevelSO> levelSos;
 
         [Header("UIView")]
-        [SerializeField] private UIView uiView;
+        [SerializeField] private Hud uiView;
 
         private TowerSpawner _towerSpawner;
-        private ScoreChangeDetector _scoreDetector;
         private GameStateMachine _gameStateMachine;
 
         private void Awake()
         {
             _gameStateMachine = new GameStateMachine();
             _towerSpawner = new TowerSpawner(levelSos, tower);
-            _scoreDetector = new ScoreChangeDetector();
-            new UIModel(_scoreDetector, _gameStateMachine, uiView);
+            new Score(uiView);
+            new Charge(uiView, chargeSO, shootingInput);
 
             shootingInput.Initialize(new Shooting(shootSpot, bulletSO.BulletPrefab));
             _towerSpawner.SpawnTower(_gameStateMachine);

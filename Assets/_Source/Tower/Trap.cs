@@ -1,3 +1,4 @@
+using MV;
 using ScriptableObjects;
 using UnityEngine;
 
@@ -21,7 +22,7 @@ namespace TowerSystem
             if (other.gameObject.layer == _bulletLayerNumber)
             {
                 Destroy(other.gameObject);
-                ScoreChangeDetector.OnScoreChange?.Invoke(trapSO.Cost);
+                Score.OnScoreChange?.Invoke(trapSO.Cost);
                 Destroy(gameObject);
             }
         }

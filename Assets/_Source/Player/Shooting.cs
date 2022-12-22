@@ -1,3 +1,4 @@
+using MV;
 using UnityEngine;
 
 namespace Player
@@ -14,6 +15,7 @@ namespace Player
         public void Shoot()
         {
             GameObject.Instantiate(_bulletPrefab, _shootSpot.position, Quaternion.identity);
+            Charge.OnChargeChange?.Invoke();
         }
     }
 }

@@ -5,12 +5,26 @@ using UnityEngine.UI;
 
 namespace MV
 {
-    public class UIView : MonoBehaviour
+    public class Hud : MonoBehaviour
     {
         [SerializeField] private TextMeshProUGUI scoreText;
         [SerializeField] private TextMeshProUGUI winScoreText;
         [SerializeField] private Image winScreen;
         [SerializeField] private Image loseScreen;
+        [SerializeField] private Slider chargeSlider;
+        [SerializeField] private Button restartButton1;
+        [SerializeField] private Button restartButton2;
+        public void Bind(int charge)
+        {
+            chargeSlider.maxValue = charge;
+            chargeSlider.value = charge;
+            restartButton1.onClick.AddListener(Restart);
+            restartButton2.onClick.AddListener(Restart);
+        }
+        public void UpdateChargeView(int charge)
+        {
+            chargeSlider.value = charge;
+        }
         public void UpdateScoreText(int score)
         {
             scoreText.text = $"{score}";
@@ -24,7 +38,7 @@ namespace MV
         {
             loseScreen.gameObject.SetActive(true);
         }
-        public void Restart()
+        private void Restart()
         {
             SceneManager.LoadScene(0);
         }

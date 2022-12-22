@@ -7,6 +7,7 @@ namespace StateSystem
     {
         private Dictionary<Type, AStateGame> states;
         private AStateGame _activeState;
+        public static Action<Type> OnChangeState;
 
         public GameStateMachine()
         {
@@ -14,8 +15,16 @@ namespace StateSystem
             states.Add(typeof(Game), new Game(this));
             states.Add(typeof(Win), new Win(this));
             states.Add(typeof(Lose), new Lose(this));
+            Bind();
         }
-
+        private void Bind()
+        {
+            OnChangeState += ChangeState;
+        }
+        public void Expose()
+        {
+            OnChangeState -= ChangeState;
+        }
         public void ChangeState(Type type)
         {
             _activeState.Exit();

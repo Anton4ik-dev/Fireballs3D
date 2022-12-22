@@ -1,6 +1,6 @@
-using Observer;
 using ScriptableObjects;
 using StateSystem;
+using Static;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -28,18 +28,8 @@ namespace TowerSystem
                 }
             }
 
-            RandomSort(pancakes);
+            RandomSort.Sort(ref pancakes);
             return pancakes;
-        }
-        private void RandomSort(List<PancakeSO> pancakes)
-        {
-            for (int i = 0; i < pancakes.Count; i++)
-            {
-                int j = Random.Range(0, pancakes.Count - 1);
-                PancakeSO element = pancakes[i];
-                pancakes[i] = pancakes[j];
-                pancakes[j] = element;
-            }
         }
         private List<GameObject> PancakesInstantiate(List<PancakeSO> pancakes)
         {
