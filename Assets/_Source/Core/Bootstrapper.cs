@@ -20,7 +20,7 @@ namespace Core
         [SerializeField] private Tower tower;
         [SerializeField] private List<LevelSO> levelSos;
 
-        [Header("UIView")]
+        [Header("View")]
         [SerializeField] private ScoreAndChargeView _scoreAndChargeView;
         
         private TowerSpawner _towerSpawner;

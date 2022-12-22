@@ -10,10 +10,10 @@ namespace Static
         {
             for (int i = 0; i < pancakes.Count; i++)
             {
-                int j = Random.Range(0, pancakes.Count - 1);
+                int rnd = Random.Range(0, pancakes.Count);
                 PancakeSO element = pancakes[i];
-                pancakes[i] = pancakes[j];
-                pancakes[j] = element;
+                pancakes[i] = pancakes[rnd];
+                pancakes[rnd] = element;
             }
         }
     }
